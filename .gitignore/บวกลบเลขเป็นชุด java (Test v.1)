@@ -1,0 +1,118 @@
+
+บวกลบเลขเป็นชุด java (Test v.1) 
+input > 1+2*3+8-5/5 
+output > 16
+
+
+import java.util.ArrayList; import java.util.Scanner;
+
+public class pluss {
+
+public static ArrayList<String> num = new ArrayList<String>();
+
+public static void findx (ArrayList<String> number){
+	int n=0;
+	for(int i = 0 ; i< number.size();i++){
+		if(number.get(i).equals("*")) {
+			n = Integer.parseInt(number.get(i-1)) * Integer.parseInt(number.get(i+1));
+			num.remove(i-1);
+			num.remove(i-1);
+			num.remove(i-1);
+			num.add(i-1,String.valueOf(n));
+			break;
+		}
+	}
+}
+public static void findh (ArrayList<String> number){
+	int n=0;
+	for(int i = 0 ; i< number.size();i++){
+		if(number.get(i).equals("/")) {
+			n = Integer.parseInt(number.get(i-1)) / Integer.parseInt(number.get(i+1));
+			num.remove(i-1);
+			num.remove(i-1);
+			num.remove(i-1);
+			num.add(i-1,String.valueOf(n));
+			break;
+		}
+	}
+}
+public static void findp (ArrayList<String> number){
+	int n=0;
+	for(int i = 0 ; i< number.size();i++){
+		if(number.get(i).equals("+")) {
+			n = Integer.parseInt(number.get(i-1)) + Integer.parseInt(number.get(i+1));
+			num.remove(i-1);
+			num.remove(i-1);
+			num.remove(i-1);
+			num.add(i-1,String.valueOf(n));
+			break;
+		}
+	}
+}
+public static void findm (ArrayList<String> number){
+	int n=0;
+	for(int i = 0 ; i< number.size();i++){
+		if(number.get(i).equals("-")){
+			
+			n = Integer.parseInt(number.get(i-1)) - Integer.parseInt(number.get(i+1));
+			num.add(i+2,String.valueOf(n));
+			num.remove(i-1);
+			num.remove(i-1);
+			num.remove(i-1);
+			break;
+		}
+	}
+}
+
+
+public static void main(String [] args) {
+	Scanner input = new Scanner(System.in);
+	
+	String text = input.next();
+	//String text = "1+2";
+	System.out.println(text +" = ");
+	String x[] = text.split("");
+	int operlaterp = 0 ;
+	int operlaterm = 0 ;
+	int operlaterx = 0 ;
+	int operlaterh = 0 ;
+
+	String nn ="";
+	for(int i = 0 ; i< x.length;i++){
+		String y = x[i];
+		if(y.equals("+")) operlaterp++;
+		if(y.equals("-")) operlaterm++;
+		if(y.equals("*")) operlaterx++;
+		if(y.equals("/")) operlaterh++;
+		if(y.equals("*")||y.equals("/")||y.equals("+")||y.equals("-")) {
+			num.add(nn);
+			num.add(y);
+			nn="";
+		}else {
+			nn+=y;
+		}
+		
+		if(i==x.length-1) {
+			num.add(nn);
+		}
+	}
+
+	
+	for(int i = 0 ; i<operlaterx ; i++){
+		findx(num);
+	}
+	//System.out.println(num);
+	for(int i = 0 ; i<operlaterh ; i++){
+		findh(num);
+	}
+	//System.out.println(num);
+	for(int i = 0 ; i<operlaterp ; i++){
+		findp(num);
+	}
+	//System.out.println(num);
+	for(int i = 0 ; i<operlaterm ; i++){
+		findm(num);
+	}	
+	System.out.println(num.get(0));
+}
+}
